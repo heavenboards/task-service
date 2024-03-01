@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5438/board_service
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/db/changelog.xml
+  docker:
+    compose:
+      enabled: true
+      file: classpath:/docker-compose.yml
+  web:
+    resources:
+      add-mappings: false
+server:
+  port: 8095
+  error:
+    whitelabel:
+      enabled: false
+microservice:
+  user-api:
+    url: http://localhost:8093
+  project-api:
+    url: http://localhost:8094
+  board-api:
+    url: http://localhost:8095
+  task-api:
+    url: http://localhost:8096
+jwt:
+  secret: 4534A29BE19F7D52DFCFA25F266C74534A29BE19F7D52DFCFA25F266C74534A29BE19F7D52DFCFA25F266C7
+  expiration-time-seconds: 3600
