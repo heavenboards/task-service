@@ -1,12 +1,11 @@
 package heavenboards.task.service.task.domain;
 
-import heavenboards.task.service.group.domain.GroupEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,13 +13,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UuidGenerator;
+import transfer.contract.domain.task.TaskRole;
 
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 /**
- * Сущность задачи.
+ * Сущность участника.
  */
 @Data
 @NoArgsConstructor
@@ -28,8 +27,8 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 @Accessors(chain = true)
 @Entity
-@Table(name = "task_entity")
-public class TaskEntity {
+@Table(name = "task_participant_entity")
+public class TaskParticipantEntity {
     /**
      * Идентификатор.
      */
@@ -38,38 +37,22 @@ public class TaskEntity {
     private UUID id;
 
     /**
-     * Название.
+     * Идентификатор пользователя.
      */
-    private String name;
+    private UUID userId;
 
     /**
-     * Описание.
-     */
-    private String description;
-
-    /**
-     * Группа, в которой лежит задача.
+     * Задача.
      */
     @ManyToOne
-    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
-    private GroupEntity group;
+    @JoinColumn(name = "task_id", referencedColumnName = "id")
+    private TaskEntity task;
 
     /**
-     * Вес позиции задачи в группе.
-     * Нужен для определения порядка отображения задач в группе на UI.
+     * Роль пользователя в задаче.
      */
-    private Integer positionWeight;
-
-    /**
-     * Номер задачи в группе.
-     */
-    private Integer number;
-
-    /**
-     * Участники задачи и их роли.
-     */
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-    private Set<TaskParticipantEntity> participants;
+    @Enumerated(EnumType.STRING)
+    private TaskRole role;
 
     /**
      * Сравнение двух объектов через id.
@@ -87,7 +70,7 @@ public class TaskEntity {
             return false;
         }
 
-        TaskEntity that = (TaskEntity) another;
+        TaskParticipantEntity that = (TaskParticipantEntity) another;
         return Objects.equals(id, that.id);
     }
 
@@ -102,18 +85,16 @@ public class TaskEntity {
     }
 
     /**
-     * Строковое отображение объекта.
+     * Переопределение toString() для избежания циклических отображений.
      *
-     * @return строковое отображение объекта
+     * @return строковое представление проекта
      */
     @Override
     public String toString() {
-        return "TaskEntity{"
+        return "TaskParticipantEntity{"
             + "id=" + id
-            + ", name='" + name + '\''
-            + ", description='" + description + '\''
-            + ", positionWeight=" + positionWeight
-            + ", number=" + number
+            + ", userId=" + userId
+            + ", role=" + role
             + '}';
     }
 }
