@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -53,8 +54,9 @@ public class GroupEntity {
     /**
      * Задачи, которые находятся в этой группе.
      */
+    @Builder.Default
     @OneToMany(mappedBy = "group")
-    private List<TaskEntity> tasks;
+    private List<TaskEntity> tasks = new ArrayList<>();
 
     /**
      * Сравнение двух объектов через id.
