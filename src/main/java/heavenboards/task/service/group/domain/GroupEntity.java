@@ -63,9 +63,15 @@ public class GroupEntity {
      * @return равны ли объекты
      */
     @Override
-    public boolean equals(Object another) {
-        if (this == another) return true;
-        if (another == null || getClass() != another.getClass()) return false;
+    public boolean equals(final Object another) {
+        if (this == another) {
+            return true;
+        }
+
+        if (another == null || getClass() != another.getClass()) {
+            return false;
+        }
+
         GroupEntity that = (GroupEntity) another;
         return Objects.equals(id, that.id);
     }

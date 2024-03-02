@@ -45,6 +45,13 @@ public class TaskEntity {
     private String description;
 
     /**
+     * Группа, в которой лежит задача.
+     */
+    @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
+    private GroupEntity group;
+
+    /**
      * Вес позиции задачи в группе.
      * Нужен для определения порядка отображения задач в группе на UI.
      */
@@ -56,22 +63,21 @@ public class TaskEntity {
     private Integer number;
 
     /**
-     * Группа, в которой лежит задача.
-     */
-    @ManyToOne
-    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
-    private GroupEntity group;
-
-    /**
      * Сравнение двух объектов через id.
      *
      * @param another - объект для сравнения
      * @return равны ли объекты
      */
     @Override
-    public boolean equals(Object another) {
-        if (this == another) return true;
-        if (another == null || getClass() != another.getClass()) return false;
+    public boolean equals(final Object another) {
+        if (this == another) {
+            return true;
+        }
+
+        if (another == null || getClass() != another.getClass()) {
+            return false;
+        }
+
         TaskEntity that = (TaskEntity) another;
         return Objects.equals(id, that.id);
     }
@@ -88,6 +94,7 @@ public class TaskEntity {
 
     /**
      * Строковое отображение объекта.
+     *
      * @return строковое отображение объекта
      */
     @Override
