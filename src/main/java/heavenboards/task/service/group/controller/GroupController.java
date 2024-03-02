@@ -13,5 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/group")
 @Tag(name = "GroupController", description = "Контроллер для взаимодействия с группами задач")
 public class GroupController {
-
 }

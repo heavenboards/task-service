@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -44,9 +45,15 @@ public class TaskEntity {
     private String description;
 
     /**
-     * Порядковый номер задачи в группе.
+     * Вес позиции задачи в группе.
+     * Нужен для определения порядка отображения задач в группе на UI.
      */
-    private Integer ordinalNumber;
+    private Integer positionWeight;
+
+    /**
+     * Номер задачи в группе.
+     */
+    private Integer number;
 
     /**
      * Группа, в которой лежит задача.
@@ -54,4 +61,43 @@ public class TaskEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
     private GroupEntity group;
+
+    /**
+     * Сравнение двух объектов через id.
+     *
+     * @param another - объект для сравнения
+     * @return равны ли объекты
+     */
+    @Override
+    public boolean equals(Object another) {
+        if (this == another) return true;
+        if (another == null || getClass() != another.getClass()) return false;
+        TaskEntity that = (TaskEntity) another;
+        return Objects.equals(id, that.id);
+    }
+
+    /**
+     * Хеш код идентификатора.
+     *
+     * @return хеш код идентификатора
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    /**
+     * Строковое отображение объекта.
+     * @return строковое отображение объекта
+     */
+    @Override
+    public String toString() {
+        return "TaskEntity{"
+            + "id=" + id
+            + ", name='" + name + '\''
+            + ", description='" + description + '\''
+            + ", positionWeight=" + positionWeight
+            + ", number=" + number
+            + '}';
+    }
 }
