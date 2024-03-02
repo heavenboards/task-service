@@ -4,4 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include file="/db/migration/group/run-once/v1_create_group_entity_table.sql"/>
+    <include file="/db/migration/task/run-once/v2_create_task_entity_table.sql"/>
 </databaseChangeLog>
