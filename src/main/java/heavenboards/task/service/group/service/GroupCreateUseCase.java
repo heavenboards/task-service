@@ -5,6 +5,7 @@ import heavenboards.task.service.group.domain.GroupRepository;
 import heavenboards.task.service.group.mapping.GroupMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import transfer.contract.api.BoardApi;
 import transfer.contract.domain.board.BoardTo;
 import transfer.contract.domain.common.OperationStatus;
@@ -46,6 +47,7 @@ public class GroupCreateUseCase {
      * @param group - to-модель группы задач
      * @return результат операции создания группы задач
      */
+    @Transactional
     public GroupOperationResultTo createGroup(final GroupTo group) {
         Optional<GroupEntity> groupByNameAndBoardId = groupRepository
             .findByNameAndBoardId(group.getName(), group.getBoard().getId());

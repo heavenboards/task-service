@@ -3,6 +3,7 @@ package heavenboards.task.service.task.domain;
 import heavenboards.task.service.group.domain.GroupEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,8 +16,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -68,8 +70,8 @@ public class TaskEntity {
     /**
      * Участники задачи и их роли.
      */
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-    private Set<TaskParticipantEntity> participants;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<TaskParticipantEntity> participants = new ArrayList<>();
 
     /**
      * Сравнение двух объектов через id.

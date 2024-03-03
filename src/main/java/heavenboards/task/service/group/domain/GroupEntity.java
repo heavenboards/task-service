@@ -2,6 +2,7 @@ package heavenboards.task.service.group.domain;
 
 import heavenboards.task.service.task.domain.TaskEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -55,7 +56,7 @@ public class GroupEntity {
      * Задачи, которые находятся в этой группе.
      */
     @Builder.Default
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     private List<TaskEntity> tasks = new ArrayList<>();
 
     /**

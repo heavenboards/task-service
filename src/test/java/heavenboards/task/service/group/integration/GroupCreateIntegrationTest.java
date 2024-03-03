@@ -100,7 +100,7 @@ public class GroupCreateIntegrationTest {
         Mockito.when(boardApi.findBoardById(Mockito.any()))
             .thenReturn(board);
 
-        Response response = createBoardAndGetResponse(board);
+        Response response = createGroupAndGetResponse(board);
         GroupOperationResultTo operationResult = response
             .getBody()
             .as(GroupOperationResultTo.class);
@@ -128,7 +128,7 @@ public class GroupCreateIntegrationTest {
         Mockito.when(boardApi.findBoardById(Mockito.any()))
             .thenThrow(FeignException.FeignServerException.class);
 
-        Response response = createBoardAndGetResponse(board);
+        Response response = createGroupAndGetResponse(board);
         ClientApplicationException applicationException = response
             .getBody()
             .as(ClientApplicationException.class);
@@ -155,12 +155,12 @@ public class GroupCreateIntegrationTest {
         Mockito.when(boardApi.findBoardById(Mockito.any()))
             .thenReturn(board);
 
-        Response successResponse = createBoardAndGetResponse(board);
+        Response successResponse = createGroupAndGetResponse(board);
         GroupOperationResultTo successOperationResult = successResponse
             .getBody()
             .as(GroupOperationResultTo.class);
 
-        Response errorResponse = createBoardAndGetResponse(board);
+        Response errorResponse = createGroupAndGetResponse(board);
         GroupOperationResultTo errorOperationResult = errorResponse
             .getBody()
             .as(GroupOperationResultTo.class);
@@ -179,7 +179,7 @@ public class GroupCreateIntegrationTest {
      * @param board - доска
      * @return ответ
      */
-    private Response createBoardAndGetResponse(BoardTo board) {
+    private Response createGroupAndGetResponse(BoardTo board) {
         return RestAssured
             .given()
             .contentType("application/json")
