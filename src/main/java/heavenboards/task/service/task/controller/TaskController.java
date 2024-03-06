@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import transfer.contract.domain.task.TaskTo;
  * Контроллер для взаимодействия с задачами.
  */
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/task")
 @Tag(name = "TaskController", description = "Контроллер для взаимодействия с задачами")
